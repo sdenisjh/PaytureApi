@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 using payture.Application.Commands;
+using payture.Domain.Dtos.GetState;
 using payture.Domain.Dtos.Pay;
 using payture.Domain.Shared;
 using payture.Infrastructure.Infrastructure.Payture;
@@ -33,7 +34,7 @@ namespace payture.Application
                 CardHolder = command.CardHolder,
             };
 
-            var customFileds = new CustomFieldsModel()
+            var customFileds = new CustomFields()
             {
                 IP = command.IP,
                 Description = command.Description,
@@ -60,6 +61,24 @@ namespace payture.Application
 
             return result;
 
+        }
+
+        public async Task<Result<GetStateApiResponse, ErrorList>> GetState(GetStateCommand command, CancellationToken cancellation)
+        {
+            _logger.LogInformation("Starting GetState request for orderId = {orderId}", command.OrderId);
+            var apiRequest = new GetStateApiRequest()
+            {
+                Key = command.Key,
+                OrderId = command.OrderId,
+            };
+
+            var result = await _apiProvider.GetStateAsync(apiRequest, cancellation);
+            if (result.Success == false)
+            {
+                return Errors.GetState.FailedOperation(result.ErrCode).ToErrorList();
+            }
+
+            return result;
         }
     }
 }

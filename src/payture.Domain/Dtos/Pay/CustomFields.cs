@@ -1,6 +1,6 @@
 ﻿namespace payture.Domain.Dtos.Pay
 {
-    public class CustomFieldsModel
+    public class CustomFields
     {
         public string? IP { get; set; }
         public string? Description { get; set; }

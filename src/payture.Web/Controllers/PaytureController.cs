@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using payture.Application;
-using payture.Domain.Dtos.Pay;
+using payture.Application.Commands;
 using payture.Web.Contracts;
 using payture.Web.Shared;
 
@@ -33,11 +33,22 @@ namespace payture.Web.Controllers
             return Ok(result.Value);
         }
 
-        //[HttpGet("state/{orderId}")]
-        //public async Task<IActionResult> GetState(string orderId)
-        //{
-        //    var result = await _paytureService.GetStateAsync(orderId);
-        //    return Ok(result);
-        //}
+        [HttpGet("state/{Key:alpha}/orderId/{OrderId:guid}")]
+        public async Task<IActionResult> GetState(string Key, Guid OrderId, CancellationToken cancellation)
+        {
+            var command = new GetStateCommand()
+            {
+                Key = Key,
+                OrderId = OrderId.ToString()
+            };
+
+            var result = await _paytureService.GetState(command, cancellation);
+            if (result.IsFailure)
+            {
+                return result.Error.ToResponse();
+            }
+
+            return Ok(result.Value);
+        }
     }
 }

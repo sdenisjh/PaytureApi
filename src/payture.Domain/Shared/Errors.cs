@@ -36,6 +36,14 @@
                 return Error.Failure($"{name}", $"payment failed");
             }
         }
+
+        public static class GetState
+        {
+            public static Error FailedOperation(string? name = null)
+            {
+                return Error.Failure($"{name}", $"get state operation failed");
+            }
+        }
     }
 
 }

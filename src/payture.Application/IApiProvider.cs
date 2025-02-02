@@ -5,7 +5,7 @@ namespace payture.Infrastructure.Infrastructure.Payture
 {
     public interface IApiProvider
     {
-        Task<GetStateResponse> GetStateAsync(string orderId, CancellationToken cancellation);
+        Task<GetStateApiResponse> GetStateAsync(GetStateApiRequest request, CancellationToken cancellation);
         Task<PayApiResponse> PayAsync(PayApiRequest request, CancellationToken cancellation);
     }
 }
