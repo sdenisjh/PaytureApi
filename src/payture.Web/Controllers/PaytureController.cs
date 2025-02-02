@@ -7,7 +7,7 @@ using payture.Web.Shared;
 namespace payture.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/payment")]
     public class PaymentController : ControllerBase
     {
         private readonly IPaytureService _paytureService;
@@ -29,12 +29,11 @@ namespace payture.Web.Controllers
                 return result.Error.ToResponse();
             }
 
-
             return Ok(result.Value);
         }
 
-        [HttpGet("state/{Key:alpha}/orderId/{OrderId:guid}")]
-        public async Task<IActionResult> GetState(string Key, Guid OrderId, CancellationToken cancellation)
+        [HttpGet("state")]
+        public async Task<IActionResult> GetState([FromQuery] string Key, [FromQuery] Guid OrderId, CancellationToken cancellation)
         {
             var command = new GetStateCommand()
             {
