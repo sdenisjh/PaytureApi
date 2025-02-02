@@ -33,8 +33,7 @@
         {
             public static Error FailedOperation(string? name = null)
             {
-                var label = name ?? "value";
-                return Error.Validation("operation.failed", $"payment failed");
+                return Error.Failure($"{name}", $"payment failed");
             }
         }
     }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions" Version="3.4.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -14,10 +15,6 @@
     <ProjectReference Include="..\payture.Application\payture.Application.csproj" />
     <ProjectReference Include="..\payture.Domain\payture.Domain.csproj" />
     <ProjectReference Include="..\payture.Infrastructure\payture.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
